@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antrian SPMB SMA Neo 23</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <h1><i class="fas fa-graduation-cap"></i> SMA NEO 23</h1>
+                <h2>SISTEM ANTRIAN SPMB</h2>
+            </div>
+            <div class="datetime">
+                <div id="date"></div>
+                <div id="time"></div>
+            </div>
+        </header>
+
+        <main>
+            <div class="content-wrapper">
+                <section class="display-section">
+                    <div class="antrian-display">
+                        <div class="display-header">
+                            <h3><i class="fas fa-tv"></i> LAYAR INFORMASI ANTRIAN</h3>
+                            <div class="status">
+                                <span class="status-indicator active"></span>
+                                <span class="status-text">SISTEM AKTIF</span>
+                            </div>
+                        </div>
+                        
+                        <div class="antrian-info">
+                            <div class="antrian-sekarang">
+                                <h4>ANTRIAN SAAT INI</h4>
+                                <div class="nomor-antrian" id="currentQueue">A001</div>
+                                <div class="operator-info" id="currentOperator">OPERATOR 1</div>
+                            </div>
+                            
+                            <div class="antrian-berikutnya">
+                                <h4>ANTRIAN BERIKUTNYA</h4>
+                                <div class="nomor-antrian" id="nextQueue">A002</div>
+                                <div class="operator-info" id="nextOperator">OPERATOR 1</div>
+                            </div>
+                        </div>
+                        
+                        <div class="panggilan-terakhir">
+                            <h4><i class="fas fa-history"></i> PANGGILAN TERAKHIR</h4>
+                            <div class="last-call-list" id="lastCallList">
+                                <!-- Daftar panggilan akan ditampilkan di sini -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="control-section">
+                    <div class="control-panel">
+                        <div class="panel-header">
+                            <h3><i class="fas fa-sliders-h"></i> PANEL KONTROL OPERATOR</h3>
+                        </div>
+                        
+                        <div class="queue-control">
+                            <h4><i class="fas fa-cog"></i> PENGATURAN NOMOR ANTRIAN</h4>
+                            <div class="queue-input-group">
+                                <div class="input-wrapper">
+                                    <label for="queuePrefix">Awalan Antrian:</label>
+                                    <select id="queuePrefix">
+                                        <option value="A">A - Pendaftaran</option>
+                                        <option value="B">B - Verifikasi</option>
+                                        <option value="C">C - Wawancara</option>
+                                        <option value="D">D - Administrasi</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="input-wrapper">
+                                    <label for="queueNumber">Nomor Antrian:</label>
+                                    <input type="number" id="queueNumber" min="1" max="999" value="1">
+                                </div>
+                                
+                                <button id="setQueueBtn" class="btn-set">
+                                    <i class="fas fa-check-circle"></i> SET ANTRIAN
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="operator-control">
+                            <h4><i class="fas fa-user-tie"></i> PILIH OPERATOR TUJUAN</h4>
+                            <div class="operator-grid" id="operatorGrid">
+                                <!-- Operator akan di-generate oleh JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <div class="call-control">
+                            <h4><i class="fas fa-bullhorn"></i> PANGGIL ANTRIAN</h4>
+                            <div class="call-section">
+                                <div class="call-preview">
+                                    <div class="preview-label">AKAN DIPANGGIL:</div>
+                                    <div class="preview-queue" id="callPreview">A001</div>
+                                    <div class="preview-operator" id="operatorPreview">OPERATOR 1</div>
+                                </div>
+                                
+                                <button id="callQueueBtn" class="btn-call">
+                                    <i class="fas fa-bullhorn"></i> PANGGIL ANTRIAN
+                                </button>
+                                
+                                <div class="audio-control">
+                                    <div class="volume-control">
+                                        <i class="fas fa-volume-up"></i>
+                                        <input type="range" id="volumeControl" min="0" max="1" step="0.1" value="0.7">
+                                    </div>
+                                    <button id="testVoiceBtn" class="btn-test">
+                                        <i class="fas fa-play-circle"></i> TEST SUARA
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="system-controls">
+                            <button id="resetQueueBtn" class="btn-reset">
+                                <i class="fas fa-redo"></i> RESET ANTRIAN
+                            </button>
+                            <button id="skipQueueBtn" class="btn-skip">
+                                <i class="fas fa-forward"></i> LEWATI ANTRIAN
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Sistem Antrian SPMB SMA Neo 23 &copy; 2023 | Developed dengan <i class="fas fa-heart"></i> untuk calon siswa baru</p>
+            <p class="info-text">Suara panggilan menggunakan Web Speech API. Pastikan browser mendukung fitur ini.</p>
+        </footer>
+    </div>
+    
+    <div class="notification" id="notification">
+        <div class="notification-content">
+            <i class="fas fa-check-circle"></i>
+            <span id="notificationText">Pengaturan berhasil disimpan!</span>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
